@@ -1,0 +1,812 @@
+<div class="app-container">
+  <!-- Login Page -->
+  <div class="login-page" id="login-page">
+    <div class="grid-overlay"></div>
+    <div class="login-left">
+      <div class="login-content">
+        <div class="logo-section">
+          <div class="logo-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="12" stroke="white" stroke-width="2.5"/>
+              <path d="M16 10v12M10 16h12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="logo-text">
+            <h1>Horizon</h1>
+            <p class="tagline">Turismo Inteligente</p>
+          </div>
+        </div>
+        <h2 class="login-title">Bienvenido <span>de nuevo</span></h2>
+        <p class="login-subtitle">Gestiona experiencias turísticas de lujo y optimiza tus operaciones desde una sola plataforma intuitiva y moderna.</p>
+        <div class="login-features">
+          <div class="feature"><span class="check">✓</span> Gestión de reservas en tiempo real</div>
+          <div class="feature"><span class="check">✓</span> Control de operadores turísticos</div>
+          <div class="feature"><span class="check">✓</span> Análisis de métricas premium</div>
+        </div>
+      </div>
+    </div>
+    <div class="login-right">
+      <div class="login-form-container">
+        <div class="form-header">
+          <h3>Iniciar Sesión</h3>
+          <p>Accede a tu cuenta para continuar</p>
+        </div>
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input type="email" id="login-email" value="admin@horizoncurator.com" placeholder="nombre@ejemplo.com">
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="login-password" value="admin123" placeholder="••••••••">
+        </div>
+        <button class="btn-login" id="btn-login">Iniciar Sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div class="main-app" id="main-app" style="display:none">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="12" stroke="white" stroke-width="2.5"/>
+            <path d="M16 10v12M10 16h12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <div>Horizon</div>
+          <div>Turismo Inteligente</div>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-item active" data-page="dashboard">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </div>
+        <div class="nav-item" data-page="servicios">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Servicios
+        </div>
+        <div class="nav-item" data-page="reservas">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Reservas
+        </div>
+        <div class="nav-item" data-page="operadores">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Operadores
+        </div>
+        <div class="nav-item" data-page="reclamaciones">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Reclamos
+        </div>
+        <div class="nav-item" data-page="feedback">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Feedback
+        </div>
+      </nav>
+
+      <button class="logout-btn" id="btn-logout">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Cerrar Sesión
+      </button>
+    </aside>
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="page-title" id="page-title">Dashboard</div>
+      <div class="search-bar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--txt3)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Buscar por cliente, reserva o servicio..." id="search-input" oninput="window.filterGlobal(this.value)">
+      </div>
+      <div class="topbar-actions">
+        <button class="notification-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="notification-dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="content">
+      <!-- Dashboard -->
+      <div class="page active" id="page-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-label">RESERVAS TOTALES</div>
+                <div class="stat-value" id="stat-reservas">6</div>
+              </div>
+              <div class="stat-icon purple"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            </div>
+            <div class="stat-footer"><span>+2 hoy</span></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-label">SERVICIOS ACTIVOS</div>
+                <div class="stat-value" id="stat-servicios">3</div>
+              </div>
+              <div class="stat-icon green"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            </div>
+            <div class="stat-footer"><span>De 5 totales</span></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-label">INGRESOS TOTALES</div>
+                <div class="stat-value" id="stat-ingresos">5,900</div>
+              </div>
+              <div class="stat-icon amber"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            </div>
+            <div class="stat-footer"><span class="positive">Sincronizado</span></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div>
+                <div class="stat-label">RECLAMACIONES</div>
+                <div class="stat-value" id="stat-reclamos">4</div>
+              </div>
+              <div class="stat-icon red"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+            </div>
+            <div class="stat-footer"><span class="warning">Pendientes</span></div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card" style="display: flex; flex-direction: column;">
+            <h3>Resumen de Actividad</h3>
+            <div class="chart-placeholder" style="display: flex; flex-direction: column; flex: 1; min-height: 0;">
+              <div class="chart-bars" id="activity-chart-bars" style="display: flex; align-items: flex-end; gap: 12px; flex: 1; min-height: 0; width: 100%; padding-top: 20px;">
+                <!-- Bars dynamic -->
+              </div>
+              <div class="chart-labels" id="activity-chart-labels" style="display: flex; justify-content: space-between; width: 100%; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 8px; flex-shrink: 0;">
+                <!-- Day labels dynamic -->
+              </div>
+            </div>
+          </div>
+          <div class="card" style="display: flex; flex-direction: column;">
+            <h3>Últimas Reservas</h3>
+            <div class="recent-list" id="dashboard-recent-list" style="display: flex; flex-direction: column; flex: 1; justify-content: flex-start;">
+              <div class="recent-item" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <div class="recent-info" style="display: flex; flex-direction: column; gap: 4px;">
+                  <div class="recent-name" style="font-weight: 800; color: #fff; font-size: 14px;">Valeria Méndez</div>
+                  <div class="recent-service" style="color: rgba(255, 255, 255, 0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Expedición Machu Picchu</div>
+                </div>
+                <span class="badge green" style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 6px 14px; border-radius: 50px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">Confirmada</span>
+              </div>
+              <div class="recent-item" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <div class="recent-info" style="display: flex; flex-direction: column; gap: 4px;">
+                  <div class="recent-name" style="font-weight: 800; color: #fff; font-size: 14px;">Daniela Salas</div>
+                  <div class="recent-service" style="color: rgba(255, 255, 255, 0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Expedición Machu Picchu</div>
+                </div>
+                <span class="badge green" style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 6px 14px; border-radius: 50px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">Confirmada</span>
+              </div>
+              <div class="recent-item" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 0;">
+                <div class="recent-info" style="display: flex; flex-direction: column; gap: 4px;">
+                  <div class="recent-name" style="font-weight: 800; color: #fff; font-size: 14px;">Camila Rocha</div>
+                  <div class="recent-service" style="color: rgba(255, 255, 255, 0.4); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;">Crucero Galápagos</div>
+                </div>
+                <span class="badge green" style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 6px 14px; border-radius: 50px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">Confirmada</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Servicios -->
+      <div class="page" id="page-servicios" style="display:none">
+        <div class="page-header">
+          <div>
+            <h2 class="page-heading">Servicios</h2>
+            <p class="page-sub">Gestiona destinos turísticos de lujo y controla la capacidad en tiempo real.</p>
+          </div>
+          <button class="btn-primary" id="btn-new-servicio">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Crear Nuevo Servicio
+          </button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID SERVICIO</th>
+                <th>DESTINO</th>
+                <th>INVERSIÓN</th>
+                <th>CAPACIDAD</th>
+                <th>OPERADOR</th>
+                <th>ESTADO</th>
+                <th>ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody id="servicios-tbody">
+              <tr>
+                <td>
+                  <div style="font-weight:600; color:var(--txt)">Expedición Machu Picchu</div>
+                  <div style="font-size:11px; color:var(--txt3)">#ST-48291</div>
+                </td>
+                <td>Cuzco, Perú</td>
+                <td style="font-weight:600; color:var(--txt); white-space:nowrap">S/. 1,200.00</td>
+                <td data-base-capacity="15" style="white-space:nowrap">15 Personas</td>
+                <td style="white-space:nowrap">Marco Valdivia</td>
+                <td><span class="badge green">● Activo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="font-weight:600; color:var(--txt)">Crucero Galápagos</div>
+                  <div style="font-size:11px; color:var(--txt3)">#ST-48292</div>
+                </td>
+                <td>Galápagos, Ecuador</td>
+                <td style="font-weight:600; color:var(--txt); white-space:nowrap">S/. 3,500.00</td>
+                <td data-base-capacity="8" style="white-space:nowrap">8 Personas</td>
+                <td style="white-space:nowrap">Roberto Sales</td>
+                <td><span class="badge green">● Activo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="font-weight:600; color:var(--txt)">Safari Selva Amazónica</div>
+                  <div style="font-size:11px; color:var(--txt3)">#ST-48293</div>
+                </td>
+                <td>Iquitos, Perú</td>
+                <td style="font-weight:600; color:var(--txt); white-space:nowrap">S/. 2,200.00</td>
+                <td data-base-capacity="12" style="white-space:nowrap">12 Personas</td>
+                <td style="white-space:nowrap">Lucía Fernández</td>
+                <td><span class="badge red">● Inactivo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="font-weight:600; color:var(--txt)">City Tour Gastronómico</div>
+                  <div style="font-size:11px; color:var(--txt3)">#ST-48294</div>
+                </td>
+                <td>Lima, Perú</td>
+                <td style="font-weight:600; color:var(--txt); white-space:nowrap">S/. 150.00</td>
+                <td data-base-capacity="20" style="white-space:nowrap">20 Personas</td>
+                <td style="white-space:nowrap">Karla Pineda</td>
+                <td><span class="badge green">● Activo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div style="font-weight:600; color:var(--txt)">Trekking Montaña 7 Colores</div>
+                  <div style="font-size:11px; color:var(--txt3)">#ST-48295</div>
+                </td>
+                <td>Cuzco, Perú</td>
+                <td style="font-weight:600; color:var(--txt); white-space:nowrap">S/. 280.00</td>
+                <td data-base-capacity="10" style="white-space:nowrap">10 Personas</td>
+                <td style="white-space:nowrap">Andrés Mendoza</td>
+                <td><span class="badge red">● Inactivo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Reservas -->
+      <div class="page" id="page-reservas" style="display:none">
+        <div class="page-header">
+          <div>
+            <h2 class="page-heading">Reservas</h2>
+            <p class="page-sub">Administra reservas, pagos e itinerarios de tus clientes.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn-primary" id="btn-export-reserva">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Exportar Reporte
+            </button>
+            <button class="btn-primary" id="btn-new-reserva">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              Nueva Reserva
+            </button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID RESERVA</th>
+                <th>CLIENTE</th>
+                <th>SERVICIO</th>
+                <th>FECHA RESERVA</th>
+                <th>ESTADO RESERVA</th>
+                <th>ESTADO PAGO</th>
+                <th>ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody id="reservas-tbody">
+              <tr>
+                <td style="white-space:nowrap">#RES-04801</td>
+                <td style="word-break:keep-all; line-height:1.3">Valeria Méndez</td>
+                <td>Expedición Machu Picchu</td>
+                <td style="white-space:nowrap">22 Abr, 2026</td>
+                <td><span class="badge green">● Confirmada</span></td>
+                <td><span class="badge blue">✓ Pagado</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style="white-space:nowrap">#RES-10306</td>
+                <td style="word-break:keep-all; line-height:1.3">Jailón Resei</td>
+                <td>City Tour Gastronómico</td>
+                <td style="white-space:nowrap">25 Abr, 2026</td>
+                <td><span class="badge amber">● Pendiente</span></td>
+                <td><span class="badge gray">◷ Pendiente</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+               <tr>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; white-space:nowrap; font-weight:600; color:var(--txt);">#RES-09412</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; font-weight:600; color:var(--txt);">Carlos Ruiz</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; color: var(--txt2); font-size: 14px;">Safari Selva Amazónica</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; color: var(--txt2); font-size: 14px;">18 Abr, 2026</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;"><span class="badge red" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; background: rgba(239, 68, 68, 0.15); color: #f87171;">● Cancelada</span></td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;"><span class="badge red" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; background: rgba(239, 68, 68, 0.15); color: #f87171;">✕ No pagado</span></td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;">
+                  <div class="action-buttons" style="display: flex; gap: 10px;">
+                    <button class="btn-action" title="Editar" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--txt2); cursor: pointer; transition: all 0.3s; padding:0; margin:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--txt2); cursor: pointer; transition: all 0.3s; padding:0; margin:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; white-space:nowrap; font-weight:600; color:var(--txt);">#RES-11200</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; font-weight:600; color:var(--txt);">Daniela Salas</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; color: var(--txt2); font-size: 14px;">Expedición Machu Picchu</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; color: var(--txt2); font-size: 14px;">01 May, 2026</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;"><span class="badge green" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; background: rgba(16, 185, 129, 0.15); color: #34d399;">● Confirmada</span></td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;"><span class="badge blue" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; background: rgba(59, 130, 246, 0.15); color: #60a5fa;">✓ Pagado</span></td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;">
+                  <div class="action-buttons" style="display: flex; gap: 10px;">
+                    <button class="btn-action" title="Editar" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--txt2); cursor: pointer; transition: all 0.3s; padding:0; margin:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--txt2); cursor: pointer; transition: all 0.3s; padding:0; margin:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; white-space:nowrap; font-weight:600; color:var(--txt);">#RES-09123</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; font-weight:600; color:var(--txt);">Jorge Tello</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; color: var(--txt2); font-size: 14px;">Safari Selva Amazónica</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; color: var(--txt2); font-size: 14px;">12 May, 2026</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;"><span class="badge amber" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; background: rgba(245, 158, 11, 0.15); color: #fbbf24;">● Pendiente</span></td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;"><span class="badge gray" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; background: rgba(107, 114, 128, 0.15); color: #9ca3af;">◷ Pendiente</span></td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;">
+                  <div class="action-buttons" style="display: flex; gap: 10px;">
+                    <button class="btn-action" title="Editar" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--txt2); cursor: pointer; transition: all 0.3s; padding:0; margin:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--txt2); cursor: pointer; transition: all 0.3s; padding:0; margin:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; white-space:nowrap; font-weight:600; color:var(--txt);">#RES-08812</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; font-weight:600; color:var(--txt);">Camila Rocha</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; color: var(--txt2); font-size: 14px;">Crucero Galápagos</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; color: var(--txt2); font-size: 14px;">28 Abr, 2026</td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;"><span class="badge green" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; background: rgba(16, 185, 129, 0.15); color: #34d399;">● Confirmada</span></td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;"><span class="badge blue" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; background: rgba(59, 130, 246, 0.15); color: #60a5fa;">✓ Pagado</span></td>
+                <td style="padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle;">
+                  <div class="action-buttons" style="display: flex; gap: 10px;">
+                    <button class="btn-action" title="Editar" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--txt2); cursor: pointer; transition: all 0.3s; padding:0; margin:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar" style="display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--txt2); cursor: pointer; transition: all 0.3s; padding:0; margin:0;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Operadores -->
+      <div class="page" id="page-operadores" style="display:none">
+        <div class="page-header">
+          <div>
+            <h2 class="page-heading">Alianzas Estratégicas</h2>
+            <p class="page-sub">Supervisa operadores turísticos y garantiza la excelencia operativa de tus socios.</p>
+          </div>
+          <button class="btn-primary" id="btn-new-operador">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Registrar Operador
+          </button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID OPERADOR</th>
+                <th>CONTACTO</th>
+                <th>TELÉFONO</th>
+                <th>FECHA REGISTRO</th>
+                <th>ESTADO</th>
+                <th>ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody id="operadores-tbody">
+              <tr>
+                <td>#OP-0321</td>
+                <td style="white-space:nowrap; font-weight:600; color:var(--txt)">Marco Valdivia</td>
+                <td style="white-space:nowrap">982 341 092</td>
+                <td style="white-space:nowrap">15 Mar, 2026</td>
+                <td><span class="badge green">● Activo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>#OP-8210</td>
+                <td style="white-space:nowrap; font-weight:600; color:var(--txt)">Roberto Sales</td>
+                <td style="white-space:nowrap">951 029 384</td>
+                <td style="white-space:nowrap">02 May, 2026</td>
+                <td><span class="badge green">● Activo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>#OP-4102</td>
+                <td style="white-space:nowrap; font-weight:600; color:var(--txt)">Lucía Fernández</td>
+                <td style="white-space:nowrap">924 817 332</td>
+                <td style="white-space:nowrap">28 Mar, 2026</td>
+                <td><span class="badge red">● Inactivo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>#OP-9921</td>
+                <td style="white-space:nowrap; font-weight:600; color:var(--txt)">Karla Pineda</td>
+                <td style="white-space:nowrap">929 111 222</td>
+                <td style="white-space:nowrap">10 Abr, 2026</td>
+                <td><span class="badge green">● Activo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>#OP-1029</td>
+                <td style="white-space:nowrap; font-weight:600; color:var(--txt)">Andrés Mendoza</td>
+                <td style="white-space:nowrap">900 123 456</td>
+                <td style="white-space:nowrap">18 Abr, 2026</td>
+                <td><span class="badge red">● Inactivo</span></td>
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action" title="Editar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                    <button class="btn-action danger" title="Eliminar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Feedback -->
+      <div class="page" id="page-reclamaciones" style="display:none">
+        <div class="page-header">
+          <div>
+            <h2 class="page-heading">Reclamos y Quejas</h2>
+            <p class="page-sub">Gestiona incidencias y resuelve conflictos para mantener la satisfacción del cliente.</p>
+          </div>
+        </div>
+        <div class="feedback-grid">
+          <div class="feedback-card">
+            <div class="feedback-header">
+              <div class="feedback-id">#REC-001</div>
+              <span class="badge amber">Pendiente</span>
+            </div>
+            <div class="feedback-client">
+              <div class="client-avatar">MR</div>
+              <div>
+                <div class="client-name">María Rodríguez</div>
+                <div class="client-service">Safari Selva Amazónica</div>
+              </div>
+            </div>
+            <p class="feedback-desc">El menú vegano incluido en el paquete premium de Safari fue incumplido todos los días, tuve que costear mi propia alimentación fuera del itinerario.</p>
+            <div class="feedback-actions">
+              <button class="btn-resolve-reclamo">Marcar Resuelto</button>
+            </div>
+          </div>
+          <div class="feedback-card">
+            <div class="feedback-header">
+              <div class="feedback-id">#REC-002</div>
+              <span class="badge green">Resuelto</span>
+            </div>
+            <div class="feedback-client">
+              <div class="client-avatar">JC</div>
+              <div>
+                <div class="client-name">Juan Carlos</div>
+                <div class="client-service">Expedición Machu Picchu</div>
+              </div>
+            </div>
+            <p class="feedback-desc">Subir por la ruta escondida fue genial, los guías tenían mucho conocimiento histórico y nos mantenían siempre motivados pese a la fatiga.</p>
+            <div class="feedback-actions">
+              <button class="btn-resolve-reclamo" disabled style="opacity:0.5; cursor:not-allowed">Resuelto</button>
+            </div>
+          </div>
+          <div class="feedback-card">
+            <div class="feedback-header">
+              <div class="feedback-id">#REC-003</div>
+              <span class="badge amber">Pendiente</span>
+            </div>
+            <div class="feedback-client">
+              <div class="client-avatar">LP</div>
+              <div>
+                <div class="client-name">Laura Pérez</div>
+                <div class="client-service">Crucero Galápagos</div>
+              </div>
+            </div>
+            <p class="feedback-desc">Hubo un retraso de 3 horas en los vuelos de conexión y el operador local no nos avisó con anticipación. Esto afectó nuestra experiencia.</p>
+            <div class="feedback-actions">
+              <button class="btn-resolve-reclamo">Marcar Resuelto</button>
+            </div>
+          </div>
+          <div class="feedback-card">
+            <div class="feedback-header">
+              <div class="feedback-id">#REC-004</div>
+              <span class="badge amber">Pendiente</span>
+            </div>
+            <div class="feedback-client">
+              <div class="client-avatar">RS</div>
+              <div>
+                <div class="client-name">Ricardo Salinas</div>
+                <div class="client-service">Expedición Machu Picchu</div>
+              </div>
+            </div>
+            <p class="feedback-desc">El transporte privado prometido llegó con 45 minutos de retraso al hotel, lo que nos hizo perder la entrada preferencial al sitio arqueológico.</p>
+            <div class="feedback-actions">
+              <button class="btn-resolve-reclamo">Marcar Resuelto</button>
+            </div>
+          </div>
+          <div class="feedback-card">
+            <div class="feedback-header">
+              <div class="feedback-id">#REC-005</div>
+              <span class="badge green">Resuelto</span>
+            </div>
+            <div class="feedback-client">
+              <div class="client-avatar">AM</div>
+              <div>
+                <div class="client-name">Ana Martínez</div>
+                <div class="client-service">Crucero Galápagos</div>
+              </div>
+            </div>
+            <p class="feedback-desc">La habitación del crucero tenía una filtración de agua en el baño. El personal fue amable y nos cambió de habitación rápidamente.</p>
+            <div class="feedback-actions">
+              <button class="btn-resolve-reclamo" disabled style="opacity:0.5; cursor:not-allowed">Resuelto</button>
+            </div>
+          </div>
+          <div class="feedback-card">
+            <div class="feedback-header">
+              <div class="feedback-id">#REC-006</div>
+              <span class="badge amber">Pendiente</span>
+            </div>
+            <div class="feedback-client">
+              <div class="client-avatar">LT</div>
+              <div>
+                <div class="client-name">Luis Torres</div>
+                <div class="client-service">Safari Selva Amazónica</div>
+              </div>
+            </div>
+            <p class="feedback-desc">El guía local no hablaba el idioma prometido en el contrato (Alemán), lo que dificultó mucho la comprensión de las explicaciones sobre la fauna.</p>
+            <div class="feedback-actions">
+              <button class="btn-resolve-reclamo">Marcar Resuelto</button>
+            </div>
+          </div>
+        </div>
+</div>
+
+      <!-- Feedback (New Section) -->
+      <div class="page" id="page-feedback" style="display:none">
+        <div class="page-header">
+          <div>
+            <h2 class="page-heading">Feedback de Clientes</h2>
+            <p class="page-sub">Analiza valoraciones y testimonios para mejorar la propuesta de valor de Horizon.</p>
+          </div>
+        </div>
+        <div class="feedback-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-user">
+                <div class="client-avatar circle" style="background: linear-gradient(135deg, #3b82f6, #2dd4bf)">LF</div>
+                <div class="user-meta">
+                  <div class="client-name">Lucía Fernández</div>
+                  <div class="tour-name">TOUR: CITY TOUR GASTRONÓMICO</div>
+                </div>
+              </div>
+              <div class="rating-info">
+                <div class="stars">★★★★★</div>
+                <div class="time-ago">Hace 2 horas</div>
+              </div>
+            </div>
+            <p class="testimonial-text">"Una experiencia gastronómica absolutamente maravillosa. Visitamos lugares exclusivos y los sabores locales superaron mis expectativas. ¡Definitivamente volveré!"</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-user">
+                <div class="client-avatar circle" style="background: linear-gradient(135deg, #a855f7, #ec4899)">MR</div>
+                <div class="user-meta">
+                  <div class="client-name">Marco Rossi</div>
+                  <div class="tour-name">TOUR: EXPEDICIÓN MACHU PICCHU</div>
+                </div>
+              </div>
+              <div class="rating-info">
+                <div class="stars">★★★★★</div>
+                <div class="time-ago">Hace 5 horas</div>
+              </div>
+            </div>
+            <p class="testimonial-text">"La logística de la expedición fue perfecta. Ver la ciudadela al amanecer fue mágico, y el equipo de Horizon cuidó cada detalle del trayecto."</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-user">
+                <div class="client-avatar circle" style="background: linear-gradient(135deg, #f59e0b, #ef4444)">ST</div>
+                <div class="user-meta">
+                  <div class="client-name">Sophie Tremblay</div>
+                  <div class="tour-name">TOUR: CRUCERO ISLAS GALÁPAGOS</div>
+                </div>
+              </div>
+              <div class="rating-info">
+                <div class="stars">★★★★★</div>
+                <div class="time-ago">Hace 1 día</div>
+              </div>
+            </div>
+            <p class="testimonial-text">"El crucero fue espectacular. La observación de fauna fue algo de otro mundo y la comodidad del camarote gourmet hizo que el viaje fuera inolvidable."</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-user">
+                <div class="client-avatar circle" style="background: linear-gradient(135deg, #10b981, #3b82f6)">JP</div>
+                <div class="user-meta">
+                  <div class="client-name">Juan Pablo</div>
+                  <div class="tour-name">TOUR: TREKKING MONTAÑA 7 COLORES</div>
+                </div>
+              </div>
+              <div class="rating-info">
+                <div class="stars">★★★★★</div>
+                <div class="time-ago">Hace 2 días</div>
+              </div>
+            </div>
+            <p class="testimonial-text">"Un desafío físico que valió totalmente la pena. Los paisajes son irreales y la organización del trekking fue muy profesional y segura."</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-user">
+                <div class="client-avatar circle" style="background: linear-gradient(135deg, #6366f1, #a855f7)">EV</div>
+                <div class="user-meta">
+                  <div class="client-name">Elena Valery</div>
+                  <div class="tour-name">TOUR: SAFARI SELVA AMAZÓNICA</div>
+                </div>
+              </div>
+              <div class="rating-info">
+                <div class="stars">★★★★☆</div>
+                <div class="time-ago">Hace 3 días</div>
+              </div>
+            </div>
+            <p class="testimonial-text">"La conexión con la naturaleza en el safari fue increíble. Dormir escuchando los sonidos de la selva fue una experiencia única y muy confortable."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reportes (New Section) -->
+      <div class="page" id="page-reportes" style="display:none">
+        <div class="page-header">
+          <div>
+            <h2 class="page-heading">Reportes y Estadísticas</h2>
+            <p class="page-sub">Analiza métricas de negocio, ingresos y popularidad de tus destinos globales.</p>
+          </div>
+          <button class="btn-primary" id="btn-export-report">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Exportar Reporte
+          </button>
+        </div>
+        
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">Ingresos Proyectados</span>
+              <div class="stat-icon purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            </div>
+            <div class="stat-value">S/. 125,400</div>
+            <div class="stat-trend positive">↑ 12% este mes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-title">Tasa de Conversión</span>
+              <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            </div>
+            <div class="stat-value">64.2%</div>
+            <div class="stat-trend positive">↑ 5.3% vs anterior</div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px;">
+          <h3>Distribución de Reservas por Destino</h3>
+          <div class="chart-placeholder" style="height: 300px;">
+            <!-- Placeholder for a larger chart -->
+            <div class="chart-bars">
+              <div class="bar" style="height: 90%;" title="Cuzco"></div>
+              <div class="bar" style="height: 70%;" title="Galápagos"></div>
+              <div class="bar" style="height: 40%;" title="Amazonas"></div>
+              <div class="bar" style="height: 60%;" title="Puno"></div>
+              <div class="bar" style="height: 85%;" title="Arequipa"></div>
+            </div>
+            <div class="chart-labels">
+              <span>Cuzco</span>
+              <span>Galápagos</span>
+              <span>Amazonas</span>
+              <span>Puno</span>
+              <span>Arequipa</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="reclamo-modal" class="custom-modal-overlay">
+  <div class="custom-modal">
+    <div class="custom-modal-header">
+      <h3 class="custom-modal-title">Detalle del Reclamo</h3>
+      <button id="reclamo-modal-close" class="custom-modal-close">×</button>
+    </div>
+    <div class="custom-modal-body" id="reclamo-modal-desc"></div>
+    <div class="custom-modal-actions">
+      <button id="reclamo-modal-cancel" style="display:none">Cancelar</button>
+      <button id="reclamo-modal-ok" class="btn-modal-ok">Entendido</button>
+    </div>
+  </div>
+</div><div id="delete-modal" class="custom-modal-overlay"><div class="delete-modal"><div class="delete-modal-icon-wrap"><div class="delete-modal-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></div></div><h3 class="delete-modal-title">Eliminar Registro</h3><p class="delete-modal-subtitle">Esta accion es <strong>permanente</strong> y no podra ser revertida.</p><div class="delete-modal-actions"><button id="delete-modal-cancel" class="btn-delete-cancel">Cancelar</button><button id="delete-modal-confirm" class="btn-delete-confirm">Si, eliminar</button></div></div></div>
