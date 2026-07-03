@@ -46,12 +46,12 @@ def init_database():
     except Exception as e:
         print(f"Database init error: {e}")
 
-app.include_router(operador_router)
-app.include_router(servicio_router)
-app.include_router(reserva_router)
-app.include_router(auth_router)
-app.include_router(reclamo_router)
-app.include_router(feedback_router)
+app.include_router(operador_router, prefix="/api")
+app.include_router(servicio_router, prefix="/api")
+app.include_router(reserva_router, prefix="/api")
+app.include_router(auth_router, prefix="/api")
+app.include_router(reclamo_router, prefix="/api")
+app.include_router(feedback_router, prefix="/api")
 
 @app.get("/")
 def read_root():
