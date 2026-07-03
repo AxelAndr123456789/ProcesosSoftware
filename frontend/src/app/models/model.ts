@@ -1,12 +1,14 @@
 import { signal } from '@angular/core';
 
+const API_BASE = 'https://horizon-backend.onrender.com';
+
 export class Model {
   private currentPage = signal('login');
   private isLoggedIn = signal(false);
 
   async login(email: string, password: string): Promise<{ success: boolean; message?: string }> {
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -45,7 +47,7 @@ export class Model {
   // Operadores
   async getOperadores(): Promise<any[]> {
     try {
-      const response = await fetch('/api/operadores/');
+      const response = await fetch(`${API_BASE}/api/operadores/`);
       return await response.json();
     } catch (error) {
       console.error('Error fetching operadores:', error);
@@ -55,7 +57,7 @@ export class Model {
 
   async createOperador(data: any): Promise<boolean> {
     try {
-      const response = await fetch('/api/operadores/', {
+      const response = await fetch(`${API_BASE}/api/operadores/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -69,7 +71,7 @@ export class Model {
 
   async updateOperador(id: number, data: any): Promise<boolean> {
     try {
-      const response = await fetch(`/api/operadores/${id}`, {
+      const response = await fetch(`${API_BASE}/api/operadores/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -83,7 +85,7 @@ export class Model {
 
   async deleteOperador(id: number): Promise<boolean> {
     try {
-      const response = await fetch(`/api/operadores/${id}`, {
+      const response = await fetch(`${API_BASE}/api/operadores/${id}`, {
         method: 'DELETE'
       });
       return response.ok;
@@ -96,7 +98,7 @@ export class Model {
   // Servicios
   async getServicios(): Promise<any[]> {
     try {
-      const response = await fetch('/api/servicios/');
+      const response = await fetch(`${API_BASE}/api/servicios/`);
       return await response.json();
     } catch (error) {
       console.error('Error fetching servicios:', error);
@@ -106,7 +108,7 @@ export class Model {
 
   async createServicio(data: any): Promise<boolean> {
     try {
-      const response = await fetch('/api/servicios/', {
+      const response = await fetch(`${API_BASE}/api/servicios/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -120,7 +122,7 @@ export class Model {
 
   async updateServicio(id: number, data: any): Promise<boolean> {
     try {
-      const response = await fetch(`/api/servicios/${id}`, {
+      const response = await fetch(`${API_BASE}/api/servicios/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -134,7 +136,7 @@ export class Model {
 
   async deleteServicio(id: number): Promise<boolean> {
     try {
-      const response = await fetch(`/api/servicios/${id}`, {
+      const response = await fetch(`${API_BASE}/api/servicios/${id}`, {
         method: 'DELETE'
       });
       return response.ok;
@@ -147,7 +149,7 @@ export class Model {
   // Reservas
   async getReservas(): Promise<any[]> {
     try {
-      const response = await fetch('/api/reservas/');
+      const response = await fetch(`${API_BASE}/api/reservas/`);
       return await response.json();
     } catch (error) {
       console.error('Error fetching reservas:', error);
@@ -157,7 +159,7 @@ export class Model {
 
   async createReserva(data: any): Promise<boolean> {
     try {
-      const response = await fetch('/api/reservas/', {
+      const response = await fetch(`${API_BASE}/api/reservas/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -171,7 +173,7 @@ export class Model {
 
   async updateReserva(id: number, data: any): Promise<boolean> {
     try {
-      const response = await fetch(`/api/reservas/${id}`, {
+      const response = await fetch(`${API_BASE}/api/reservas/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -185,7 +187,7 @@ export class Model {
 
   async deleteReserva(id: number): Promise<boolean> {
     try {
-      const response = await fetch(`/api/reservas/${id}`, {
+      const response = await fetch(`${API_BASE}/api/reservas/${id}`, {
         method: 'DELETE'
       });
       return response.ok;
@@ -197,45 +199,36 @@ export class Model {
 
   // Reclamaciones
   async getReclamaciones(): Promise<any[]> {
-    return [];
-    /*
     try {
-      const response = await fetch('/api/reclamaciones');
+      const response = await fetch(`${API_BASE}/api/reclamos/`);
       return await response.json();
     } catch (error) {
       console.error('Error fetching reclamaciones:', error);
       return [];
     }
-    */
   }
 
   async resolveReclamacion(id: number): Promise<boolean> {
-    return true;
-    /*
     try {
-      const response = await fetch(`/api/reclamaciones/${id}/resolve/`, {
-        method: 'POST'
+      const response = await fetch(`${API_BASE}/api/reclamos/${id}/resolve`, {
+        method: 'PUT'
       });
       return response.ok;
     } catch (error) {
       console.error('Error resolving reclamacion:', error);
       return false;
     }
-    */
   }
 
   // Feedback
   async getFeedback(): Promise<any[]> {
-    return [];
-    /*
     try {
-      const response = await fetch('/api/feedback/');
+      const response = await fetch(`${API_BASE}/api/feedback/`);
       return await response.json();
     } catch (error) {
       console.error('Error fetching feedback:', error);
       return [];
     }
-    */
   }
 
   getState() {

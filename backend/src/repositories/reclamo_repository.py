@@ -1,10 +1,10 @@
 from .database import get_db_connection
 
-class OperadorRepository:
+class ReclamoRepository:
     def get_all(self):
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM sp_get_operadores()")
+        cursor.execute("SELECT * FROM sp_get_reclamos()")
         columns = [desc[0] for desc in cursor.description]
         results = [dict(zip(columns, row)) for row in cursor.fetchall()]
         cursor.close()
@@ -14,7 +14,8 @@ class OperadorRepository:
     def create(self, data):
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM sp_create_operador(%s, %s, %s)", (data.contacto, data.telefono, data.estado))
+        cursor.execute("SELECT * FROM sp_create_reclamo(%s, %s, %s, %s, %s)",
+                      (data.id_reserva, data.cliente, data.motivo, data.descripcion, data.estado))
         conn.commit()
         cursor.close()
         conn.close()
@@ -22,7 +23,8 @@ class OperadorRepository:
     def update(self, id, data):
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM sp_update_operador(%s, %s, %s, %s)", (id, data.contacto, data.telefono, data.estado))
+        cursor.execute("SELECT * FROM sp_update_reclamo(%s, %s, %s, %s, %s, %s)",
+                      (id, data.id_reserva, data.cliente, data.motivo, data.descripcion, data.estado))
         conn.commit()
         cursor.close()
         conn.close()
@@ -30,7 +32,15 @@ class OperadorRepository:
     def delete(self, id):
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM sp_delete_operador(%s)", (id,))
+        cursor.execute("SELECT * FROM sp_delete_reclamo(%s)", (id,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+    def resolve(self, id):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM sp_resolve_reclamo(%s)", (id,))
         conn.commit()
         cursor.close()
         conn.close()

@@ -25,6 +25,7 @@ export class Controller {
     
     this.view.bindUpdateReserva(this.handleUpdateReserva.bind(this));
     this.view.bindDeleteReserva(this.handleDeleteReserva.bind(this));
+    this.view.bindResolveReclamo(this.handleResolveReclamo.bind(this));
 
     this.onStateChanged();
     this.loadInitialData();
@@ -34,15 +35,15 @@ export class Controller {
     const operadores = await this.model.getOperadores();
     const servicios = await this.model.getServicios();
     const reservas = await this.model.getReservas();
-    
-    // const reclamaciones = await this.model.getReclamaciones();
-    // const feedback = await this.model.getFeedback();
+    const reclamaciones = await this.model.getReclamaciones();
+    const feedback = await this.model.getFeedback();
     
     this.view.renderOperadores(operadores);
     this.view.renderServicios(servicios);
     this.view.renderReservas(reservas);
-    // this.view.renderReclamaciones(reclamaciones);
-    // this.view.renderFeedback(feedback);
+    this.view.renderReclamaciones(reclamaciones);
+    this.view.renderFeedback(feedback);
+    this.view.refreshDashboardStats();
   }
 
   private onStateChanged(): void {
@@ -52,9 +53,10 @@ export class Controller {
   private async handleLogin(email: string, password: string): Promise<void> {
     const result = await this.model.login(email, password);
     if (result.success) {
+      this.view.showCustomModal('Bienvenido', 'Inicio de sesion exitoso.', 'success');
       this.onStateChanged();
     } else {
-      this.view.showError(result.message || 'Error desconocido');
+      this.view.showCustomModal('Error de autenticacion', result.message || 'Credenciales incorrectas. Por favor, intenta de nuevo.', 'error');
     }
   }
 
@@ -71,18 +73,44 @@ export class Controller {
   }
 
   private async handleCreateOperador(data: any): Promise<boolean> {
+    const existing = await this.model.getOperadores();
+    const duplicate = existing.find((op: any) =>
+      op.contacto?.toLowerCase().trim() === data.contacto?.toLowerCase().trim()
+    );
+    if (duplicate) {
+      this.view.showCustomModal('Dato duplicado', 'Ya existe un operador con ese nombre. Por favor, ingresa un nombre diferente.', 'error');
+      return false;
+    }
     const success = await this.model.createOperador(data);
     if (success) await this.loadInitialData();
     return success;
   }
 
   private async handleCreateServicio(data: any): Promise<boolean> {
+    const existing = await this.model.getServicios();
+    const duplicate = existing.find((svc: any) =>
+      svc.nombre?.toLowerCase().trim() === data.nombre?.toLowerCase().trim() &&
+      svc.destino?.toLowerCase().trim() === data.destino?.toLowerCase().trim()
+    );
+    if (duplicate) {
+      this.view.showCustomModal('Dato duplicado', 'Ya existe un servicio con ese nombre y destino. Por favor, modifica los datos.', 'error');
+      return false;
+    }
     const success = await this.model.createServicio(data);
     if (success) await this.loadInitialData();
     return success;
   }
 
   private async handleCreateReserva(data: any): Promise<boolean> {
+    const existing = await this.model.getReservas();
+    const duplicate = existing.find((res: any) =>
+      res.cliente?.toLowerCase().trim() === data.cliente?.toLowerCase().trim() &&
+      res.id_servicio === data.id_servicio
+    );
+    if (duplicate) {
+      this.view.showCustomModal('Dato duplicado', 'Ya existe una reserva de ese cliente para el mismo servicio. Por favor, verifica los datos.', 'error');
+      return false;
+    }
     const success = await this.model.createReserva(data);
     if (success) await this.loadInitialData();
     return success;
@@ -110,6 +138,10 @@ export class Controller {
 
   private async handleDeleteReserva(id: number): Promise<boolean> {
     return await this.model.deleteReserva(id);
+  }
+
+  private async handleResolveReclamo(id: number): Promise<boolean> {
+    return await this.model.resolveReclamacion(id);
   }
 }
 

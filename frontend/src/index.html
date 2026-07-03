@@ -9,5 +9,54 @@
 </head>
 <body>
   <app-root></app-root>
+  <script>
+    function filterTable(query) {
+      var normalize = function(text) {
+        return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+      };
+      var q = normalize(query);
+      document.querySelectorAll('table tbody').forEach(function(tbody) {
+        var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr:not(.no-results-row)'));
+        var visibleCount = 0;
+        rows.forEach(function(tr) {
+          var text = normalize(tr.textContent || '');
+          var matches = q === '' || text.indexOf(q) !== -1;
+          if (matches) {
+            tr.style.display = '';
+            visibleCount++;
+          } else {
+            tr.style.display = 'none';
+          }
+        });
+        var noResultsRow = tbody.querySelector('.no-results-row');
+        if (visibleCount === 0 && q !== '') {
+          if (!noResultsRow) {
+            var tr = document.createElement('tr');
+            tr.className = 'no-results-row';
+            tr.innerHTML = '<td colspan="10" style="padding:40px;text-align:center;color:#9ca3af;font-size:14px;background:transparent !important;border:none;">No se encontraron resultados para "' + query + '"</td>';
+            tbody.appendChild(tr);
+          }
+        } else if (noResultsRow) {
+          noResultsRow.remove();
+        }
+      });
+    }
+
+    function bindSearch() {
+      var el = document.getElementById('search-input');
+      if (el && !el.getAttribute('data-bound')) {
+        el.setAttribute('data-bound', '1');
+        el.addEventListener('input', function() {
+          filterTable(this.value);
+        });
+      }
+    }
+
+    var observer = new MutationObserver(function() {
+      bindSearch();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    bindSearch();
+  </script>
 </body>
 </html>

@@ -22,6 +22,7 @@ export class View {
 
   private onUpdateReserva: ((id: number, data: any) => Promise<boolean>) | null = null;
   private onDeleteReserva: ((id: number) => Promise<boolean>) | null = null;
+  private onResolveReclamo: ((id: number) => Promise<boolean>) | null = null;
 
   constructor() {
     this.sidebar = document.querySelector('.sidebar');
@@ -64,7 +65,7 @@ export class View {
     return `<span class="badge ${type}" style="${bStyle}">${icon} ${text.replace(/[✓◷✕]/g, '').trim()}</span>`;
   }
 
-  public showCustomModal(title: string, msg: string): void {
+  public showCustomModal(title: string, msg: string, type?: string): void {
     const modalOverlay = document.getElementById('reclamo-modal');
     const modalTitle = document.querySelector('.custom-modal-title');
     const modalDesc = document.getElementById('reclamo-modal-desc');
@@ -75,11 +76,23 @@ export class View {
     if (modalOverlay && modalTitle && modalDesc) {
       modalTitle.textContent = title;
       modalDesc.innerHTML = msg;
+
+      if (modalTitle) {
+        if (type === 'success') {
+          (modalTitle as HTMLElement).style.color = '#10b981';
+        } else if (type === 'error') {
+          (modalTitle as HTMLElement).style.color = '#ef4444';
+        } else {
+          (modalTitle as HTMLElement).style.color = '';
+        }
+      }
+
       modalOverlay.classList.add('active');
     }
 
     const closeModal = () => {
       if (modalOverlay) modalOverlay.classList.remove('active');
+      if (modalTitle) (modalTitle as HTMLElement).style.color = '';
     };
 
     if (modalClose) modalClose.onclick = closeModal;
@@ -476,10 +489,8 @@ export class View {
               estado_reserva: data['r-status'],
               estado_pago: data['r-status'] === 'Confirmada' ? 'Pagado' : 'Pendiente'
             });
-            if (!success) {
-              this.showError('No se pudo guardar la reserva');
-            } else {
-              this.showCustomModal('Registro Exitoso ✨', 'La nueva reserva ha sido registrada correctamente.');
+            if (success) {
+              this.showCustomModal('Registro Exitoso', 'La nueva reserva ha sido registrada correctamente.', 'success');
             }
           }
         });
@@ -521,10 +532,8 @@ export class View {
               id_operador: parseInt(data['f-operator']),
               estado: data['f-status']
             });
-            if (!success) {
-              this.showError('No se pudo guardar el servicio');
-            } else {
-              this.showCustomModal('Experiencia Creada ✨', 'El nuevo servicio ha sido diseñado y guardado.');
+            if (success) {
+              this.showCustomModal('Experiencia Creada', 'El nuevo servicio ha sido disenado y guardado.', 'success');
             }
           }
         });
@@ -562,10 +571,8 @@ export class View {
               telefono: data['o-phone'],
               estado: data['o-status']
             });
-            if (!success) {
-              this.showError('No se pudo guardar en la base de datos');
-            } else {
-              this.showCustomModal('Socio Registrado ✨', 'El nuevo operador ha sido dado de alta exitosamente.');
+            if (success) {
+              this.showCustomModal('Socio Registrado', 'El nuevo operador ha sido dado de alta exitosamente.', 'success');
             }
           }
         });
@@ -584,36 +591,20 @@ export class View {
   }
 
   private bindReclamosActions(): void {
-    const viewBtns = document.querySelectorAll('.btn-view-reclamo');
-
-    viewBtns.forEach((btn: Element) => {
-      (btn as HTMLElement).onclick = (e) => {
-        const btnElement = e.currentTarget as HTMLElement;
-        const desc = btnElement.getAttribute('data-desc');
-
-        if (desc) {
-          this.showCustomModal('Detalle del Reclamo', desc);
-        }
-
-        const tr = btnElement.closest('tr');
-        if (tr) {
-          const statusSpan = tr.querySelector('.badge');
-          if (statusSpan && statusSpan.textContent?.includes('Pendiente')) {
-            statusSpan.outerHTML = this.getBadgeHtml('green', 'Resuelto');
-          }
-        }
-      };
-    });
-
     const resolveBtns = document.querySelectorAll('.btn-resolve-reclamo');
     resolveBtns.forEach((btn: Element) => {
-      (btn as HTMLElement).onclick = (e) => {
+      (btn as HTMLElement).onclick = async (e) => {
         const card = (e.currentTarget as HTMLElement).closest('.feedback-card');
-        const tr = (e.currentTarget as HTMLElement).closest('tr');
-        const container = card || tr;
-
-        if (container) {
-          const badge = container.querySelector('.badge');
+        if (card) {
+          const id = parseInt(card.getAttribute('data-id') || '0');
+          if (this.onResolveReclamo && id) {
+            const success = await this.onResolveReclamo(id);
+            if (!success) {
+              this.showError('No se pudo marcar el reclamo como resuelto');
+              return;
+            }
+          }
+          const badge = card.querySelector('.badge');
           if (badge && badge.textContent?.includes('Pendiente')) {
             badge.className = 'badge green';
             badge.textContent = 'Resuelto';
@@ -641,7 +632,7 @@ export class View {
     modal.onclick = (e: MouseEvent) => { if (e.target === modal) close(); };
   }
 
-  private refreshDashboardStats(): void {
+  public refreshDashboardStats(): void {
     const resValueEl = document.getElementById('stat-reservas');
     const svcValueEl = document.getElementById('stat-servicios');
     const incValueEl = document.getElementById('stat-ingresos');
@@ -850,6 +841,10 @@ export class View {
         item.classList.remove('active');
       }
     });
+
+    if (currentPage === 'dashboard') {
+      this.refreshDashboardStats();
+    }
   }
 
   public bindLogin(handler: (email: string, password: string) => void): void {
@@ -972,6 +967,10 @@ export class View {
     this.onDeleteReserva = handler;
   }
 
+  public bindResolveReclamo(handler: (id: number) => Promise<boolean>): void {
+    this.onResolveReclamo = handler;
+  }
+
   public renderOperadores(operadores: any[]): void {
     const tbody = document.querySelector('#page-operadores tbody');
     if (!tbody) return;
@@ -1070,21 +1069,32 @@ export class View {
 
   public renderReclamaciones(reclamaciones: any[]): void {
     const grid = document.querySelector('#page-reclamaciones .feedback-grid');
-    if (!grid || !reclamaciones || reclamaciones.length === 0) return;
+    if (!grid) return;
     grid.innerHTML = '';
-    reclamaciones.forEach((rec: any) => {
-      const recIdDisplay = `#REC-${String(rec.id_reclamacion).padStart(3, '0')}`;
-      const statusBadge = this.getBadgeHtml(rec.estado === 'Resuelto' ? 'green' : 'amber', rec.estado);
+    if (!reclamaciones || reclamaciones.length === 0) return;
+    const gradients = [
+      'linear-gradient(135deg, #6366f1, #a855f7)',
+      'linear-gradient(135deg, #f59e0b, #ef4444)',
+      'linear-gradient(135deg, #10b981, #3b82f6)',
+      'linear-gradient(135deg, #ec4899, #a855f7)',
+      'linear-gradient(135deg, #3b82f6, #2dd4bf)',
+      'linear-gradient(135deg, #6366f1, #ec4899)'
+    ];
+    reclamaciones.forEach((rec: any, index: number) => {
+      const recIdDisplay = `#REC-${String(rec.id_reclamo).padStart(3, '0')}`;
+      const badgeClass = rec.estado === 'Resuelto' ? 'green' : 'amber';
+      const badgeText = rec.estado === 'Resuelto' ? 'Resuelto' : 'Pendiente';
       const initials = (rec.cliente || '??').split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
+      const gradient = gradients[index % gradients.length];
       
       const cardHtml = `
-        <div class="feedback-card" data-id="${rec.id_reclamacion}">
+        <div class="feedback-card" data-id="${rec.id_reclamo}">
           <div class="feedback-header">
             <div class="feedback-id">${recIdDisplay}</div>
-            ${statusBadge}
+            <span class="badge ${badgeClass}">${badgeText}</span>
           </div>
           <div class="feedback-client">
-            <div class="client-avatar">${initials}</div>
+            <div class="client-avatar" style="background: ${gradient}">${initials}</div>
             <div>
               <div class="client-name">${rec.cliente}</div>
               <div class="client-service">${rec.nombre_servicio || 'Servicio Desconocido'}</div>
@@ -1104,21 +1114,31 @@ export class View {
 
   public renderFeedback(feedback: any[]): void {
     const grid = document.querySelector('#page-feedback .feedback-grid');
-    if (!grid || !feedback || feedback.length === 0) return;
+    if (!grid) return;
     grid.innerHTML = '';
-    feedback.forEach((fb: any) => {
+    if (!feedback || feedback.length === 0) return;
+    const gradients = [
+      'linear-gradient(135deg, #3b82f6, #2dd4bf)',
+      'linear-gradient(135deg, #a855f7, #ec4899)',
+      'linear-gradient(135deg, #f59e0b, #ef4444)',
+      'linear-gradient(135deg, #10b981, #3b82f6)',
+      'linear-gradient(135deg, #6366f1, #a855f7)'
+    ];
+    feedback.forEach((fb: any, index: number) => {
       const initials = (fb.cliente || '??').split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
-      const stars = '★'.repeat(fb.valoracion) + '☆'.repeat(5 - fb.valoracion);
-      const timeAgo = new Date(fb.fecha).toLocaleDateString();
+      const cal = fb.calificacion || 0;
+      const stars = '★'.repeat(cal) + '☆'.repeat(5 - cal);
+      const timeAgo = fb.fecha_feedback ? new Date(fb.fecha_feedback).toLocaleDateString() : 'Sin fecha';
+      const gradient = gradients[index % gradients.length];
       
       const cardHtml = `
         <div class="testimonial-card">
           <div class="testimonial-header">
             <div class="testimonial-user">
-              <div class="client-avatar circle" style="background: var(--grad-main)">${initials}</div>
+              <div class="client-avatar circle" style="background: ${gradient}">${initials}</div>
               <div class="user-meta">
                 <div class="client-name">${fb.cliente}</div>
-                <div class="tour-name">TOUR: ${fb.nombre_servicio || 'N/A'}</div>
+                <div class="tour-name">TOUR: ${(fb.nombre_servicio || 'N/A').toUpperCase()}</div>
               </div>
             </div>
             <div class="rating-info">
