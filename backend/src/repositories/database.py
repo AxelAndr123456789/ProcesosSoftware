@@ -5,5 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def get_db_connection():
-    conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+    url = os.getenv("DATABASE_URL")
+    if not url:
+        raise Exception("DATABASE_URL environment variable is not set")
+    conn = psycopg2.connect(url)
     return conn
