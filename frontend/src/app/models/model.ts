@@ -1,6 +1,6 @@
 import { signal } from '@angular/core';
 
-const API_BASE = 'https://horizon-backend.onrender.com';
+const API_BASE = 'https://procesossoftware-83y4.onrender.com';
 
 export class Model {
   private currentPage = signal('login');
