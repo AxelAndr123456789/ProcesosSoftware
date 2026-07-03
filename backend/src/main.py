@@ -6,6 +6,7 @@ from .apis.reserva_api import router as reserva_router
 from .apis.auth_api import router as auth_router
 from .apis.reclamo_api import router as reclamo_router
 from .apis.feedback_api import router as feedback_router
+from .repositories.database import get_db_connection
 import os
 
 app = FastAPI(title="Horizon System API", version="1.0.0")
@@ -27,6 +28,23 @@ async def add_process_time_header(request, call_next):
     process_time = time.time() - start_time
     response.headers["X-Process-Time"] = str(process_time)
     return response
+
+@app.on_event("startup")
+def init_database():
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        sql_path = os.path.join(os.path.dirname(__file__), "..", "database_postgresql.sql")
+        with open(sql_path, "r") as f:
+            sql = f.read()
+        sql = sql.replace("CREATE DATABASE horizon_db;", "")
+        cur.execute(sql)
+        conn.commit()
+        cur.close()
+        conn.close()
+        print("Database initialized successfully")
+    except Exception as e:
+        print(f"Database init error: {e}")
 
 app.include_router(operador_router)
 app.include_router(servicio_router)
