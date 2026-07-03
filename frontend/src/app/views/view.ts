@@ -1007,7 +1007,7 @@ export class View {
       const svcIdDisplay = `#ST-${String(svc.id_servicio).padStart(5, '0')}`;
       const btnStyle = 'display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: var(--txt2); cursor: pointer; transition: all 0.3s; padding:0; margin:0;';
       const tdStyle = 'padding: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.03); vertical-align: middle; color: var(--txt2); font-size: 14px;';
-      const statusBadge = this.getBadgeHtml(svc.estado === 'Activo' ? 'green' : 'red', svc.estado);
+      const statusBadge = this.getBadgeHtml(svc.estado === 'Disponible' ? 'green' : 'red', svc.estado);
       const rawRow = `
         <tr data-id="${svc.id_servicio}">
           <td style="${tdStyle}">
